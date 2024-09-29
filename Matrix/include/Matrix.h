@@ -13,6 +13,7 @@ private:
 	size_t rows, cols;
 
 public:
+	Matrix(size_t n);
 	Matrix(size_t rows_, size_t cols_);
 	size_t get_rows() const;
 	size_t get_cols() const;
@@ -27,10 +28,18 @@ public:
 };
 
 template<typename T>
+Matrix<T>::Matrix(size_t n) : rows(n), cols(n)
+{
+	data.resize(n, std::vector<T>(n, T{}));
+	for (size_t i = 0; i < n; ++i)
+	{
+		data[i][i] = 1;
+	}
+}
+
+template<typename T>
 Matrix<T>::Matrix(size_t rows_, size_t cols_) : rows(rows_), cols(cols_)
 {
-	if (rows_ < 0 || cols_ < 0)
-		throw std::invalid_argument("Matrix dimensions cannot be negative");
 	data.resize(rows_, std::vector<T>(cols_, T{}));
 }
 

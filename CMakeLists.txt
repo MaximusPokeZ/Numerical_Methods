@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(Matrix)
 add_subdirectory(Thomas_method)
-
+add_subdirectory(Gauss)
