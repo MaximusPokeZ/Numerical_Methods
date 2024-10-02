@@ -4,6 +4,8 @@
 #include "Matrix.h"
 #include "cmath"
 
+// https://24calc.ru/metod-yakobi/?ysclid=m1sc1522wo827202540
+
 template <typename T>
 T not_diagonal_max_element (const Matrix<T>& m, size_t& p, size_t& q)
 {
