@@ -19,6 +19,7 @@ public:
 	size_t get_cols() const;
 	std::vector<T>& operator[](size_t row);
 	const std::vector<T>& operator[](size_t row) const;
+	bool is_symmetric (T epsilon = std::numeric_limits<T>::epsilon()) const;
 
 	Matrix<T> operator+(const Matrix<T>& other) const;
 	Matrix<T> operator-(const Matrix<T>& other) const;
@@ -123,6 +124,20 @@ Matrix<T> Matrix<T>::transpose() const
 		for (size_t j = 0; j < cols; ++j)
 			result[j][i] = data[i][j];
 	return result;
+}
+
+template<typename T>
+bool Matrix<T>::is_symmetric(T epsilon) const
+{
+	if (rows != cols) return false;
+	for (size_t i = 0; i < rows; ++i)
+	{
+		for (size_t j = i + 1; j < cols; ++j)
+		{
+			if (std::abs(data[i][j] - data[j][i]) > epsilon) return false;
+		}
+	}
+	return true;
 }
 
 
