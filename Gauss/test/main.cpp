@@ -7,7 +7,6 @@ int main(int argc, char* argv[])
 
 	if (argc != 2)
 	{
-		std::cout << argc;
 		std::cerr << "No file provided";
 		return -1;
 	}
