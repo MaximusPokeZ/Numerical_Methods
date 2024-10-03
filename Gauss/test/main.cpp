@@ -34,9 +34,9 @@ int main(int argc, char* argv[])
 
 	in.close();
 
-	std::cout << "Матрица A:\n";
+	std::cout << "Matrix A:\n";
 	std::cout << A;
-	std::cout << "\nВектор b:\n";
+	std::cout << "\nVector b:\n";
 	for (const auto& val : b)
 	{
 		std::cout << val << "\n";
@@ -45,17 +45,21 @@ int main(int argc, char* argv[])
 	long double det = 1.0l;
 	method_gauss(A, b, det);
 
-	std::cout << "\nРешение:\n";
+	std::cout << "\nSolution:\n";
 	for (const auto& val : b)
 	{
 		std::cout << val << "\n";
 	}
-	std::cout << "\nОпределитель: " << det << "\n";
+	std::cout << "\nDeterminant: " << det << "\n";
 
 	Matrix<long double> reverse = get_reverse_matrix(A);
 
-	std::cout << "\nОбратная матрица:\n";
+	std::cout << "\nMatrix A^-1:\n";
 	std::cout << reverse;
+
+
+	std::cout << std::setprecision(-1) <<"\n";
+	std::cout << A * reverse;
 
 	return 0;
 }

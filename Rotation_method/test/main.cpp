@@ -28,6 +28,11 @@ int main(int argc, char* argv[])
 
 		infile >> matrix;
 
+		std::cout << "Norms:\n";
+		std::cout << "1: " << matrix.frobenius_sqrt_norm() << "\n";
+		std::cout << "2: " << matrix.row_norm() << "\n";
+		std::cout << "3: " << matrix.col_norm() << "\n";
+
 		long double eps;
 		infile >> eps;
 
@@ -50,7 +55,23 @@ int main(int argc, char* argv[])
 
 		std::cout << "\nEigenvectors:\n" << J;
 
-		std::cout << "\nIterations: " << iter << "\n";
+		std::cout << "\nIterations Jacobi: " << iter << "\n\n";
+
+
+		std::cout << "Power method\n";
+
+		auto [lambda, v] = power_method(matrix, eps, iter = 0);
+		std::cout << "Max eigenvalues:\n" << lambda << "\n";
+		std::cout << "\nEigenvectors:\n";
+
+		for (const auto& elem : v)
+		{
+			std::cout << elem << "\n";
+		}
+
+		std::cout << "\nIterations Power method: " << iter << "\n\n";
+
+
 
 	}
 	catch (const std::exception& e)

@@ -43,9 +43,14 @@ void jacobi_method(Matrix<T> A, std::vector<T>& eigenvalues, Matrix<T>& J, const
 	size_t p = 0, q = 0;
 	T max_elem = not_diagonal_max_element(A, p, q);;
 
-	 while (max_elem > epsilon)
+	 while (max_elem > epsilon) // можно еще проверить как сумму квадратов внедиагональных элементов
 	 {
-		 double phi = 0.5 * std::atan(2 * A[p][q] / (A[p][p] - A[q][q]));
+		 double phi;
+		 if (std::abs(A[p][p] - A[q][q]) < epsilon)
+		 {
+			 phi = M_PI / 4.0;
+		 }
+		 phi = 0.5 * std::atan(2 * A[p][q] / (A[p][p] - A[q][q]));
 		 Matrix<T> P = Matrix<T>(n);
 		 P[p][p] = P[q][q] = std::cos(phi);
 		 P[p][q] = -std::sin(phi);
@@ -62,8 +67,44 @@ void jacobi_method(Matrix<T> A, std::vector<T>& eigenvalues, Matrix<T>& J, const
 	 {
 		 eigenvalues[i] = A[i][i];
 	 }
-
 }
+
+// 253 стр пирумов
+template <typename T>
+std::pair<T, std::vector<T>> power_method(const Matrix<T>& A, const T& epsilon, size_t& iteration)
+{
+	size_t n = A.get_rows();
+	std::vector<T> y(n, 1.0);
+	std::vector<T> y_next(n, 0.0);
+	T lambda_old = 0, lambda_new = 0;
+
+	for (;; ++iteration)
+	{
+		for (size_t i = 0; i < n; ++i) // y_next = A * y
+		{
+			y_next[i] = 0;
+			for (size_t j = 0; j < n; ++j)
+			{
+				y_next[i] += A[i][j] * y[j];
+			}
+		}
+
+		lambda_new = *std::max_element(y_next.begin(), y_next.end(), [](T a, T b) { return std::abs(a) < std::abs(b); });
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			y_next[i] /= lambda_new;
+		}
+
+		if (std::abs(lambda_new - lambda_old) < epsilon) break;
+
+		lambda_old = lambda_new;
+		y = y_next;
+	}
+
+	return {lambda_new, y_next};
+}
+
 
 
 

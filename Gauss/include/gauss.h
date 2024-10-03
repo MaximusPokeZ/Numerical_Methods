@@ -92,7 +92,8 @@ Matrix<T> get_reverse_matrix(Matrix<T> A)
 		}
 
 		// если ведущий элемент равен нулю, обратной матрицы не существует
-		if (augmented[max_row][i] == 0) {
+		if (augmented[max_row][i] == 0)
+		{
 			throw std::runtime_error("Matrix is singular and cannot be inverted");
 		}
 
@@ -104,6 +105,7 @@ Matrix<T> get_reverse_matrix(Matrix<T> A)
 			}
 		}
 
+		// прямой ход
 		for (size_t k = i + 1; k < n; ++k)
 		{
 			T factor = augmented[k][i] / augmented[i][i];
@@ -115,6 +117,7 @@ Matrix<T> get_reverse_matrix(Matrix<T> A)
 	}
 
 	// Приведение к единичной матрице
+
 	for (size_t i = n; i-- > 0;) {
 		T divisor = augmented[i][i];
 		for (size_t j = 0; j < 2 * n; ++j)

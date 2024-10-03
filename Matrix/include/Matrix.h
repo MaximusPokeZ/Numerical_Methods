@@ -26,6 +26,11 @@ public:
 	Matrix<T> operator*(const Matrix<T>& other) const;
 	Matrix<T> operator*(const T& scalar) const;
 	Matrix<T> transpose() const;
+
+	T frobenius_sqrt_norm() const;
+	T row_norm() const;
+	T col_norm() const;
+
 };
 
 template<typename T>
@@ -170,6 +175,52 @@ std::ostream& operator<<(std::ostream& out, const Matrix<U>& m)
 		out << "\n";
 	}
 	return out;
+}
+
+template <typename T>
+T Matrix<T>::frobenius_sqrt_norm() const
+{
+	T norm = 0;
+	for (size_t i = 0; i < rows; ++i)
+	{
+		for (size_t j = 0; j < cols; ++j)
+		{
+			norm += data[i][j] * data[i][j];
+		}
+	}
+	return std::sqrt(norm);
+}
+
+template <typename T>
+T Matrix<T>::row_norm() const
+{
+	T max_sum = 0;
+	for (size_t i = 0; i < rows; ++i)
+	{
+		T row_sum = 0;
+		for (size_t j = 0; j < cols; ++j)
+		{
+			row_sum += std::abs(data[i][j]);
+		}
+		max_sum = std::max(max_sum, row_sum);
+	}
+	return max_sum;
+}
+
+template <typename T>
+T Matrix<T>::col_norm() const
+{
+	T max_sum = 0;
+	for (size_t j = 0; j < cols; ++j)
+	{
+		T col_sum = 0;
+		for (size_t i = 0; i < rows; ++i)
+		{
+			col_sum += std::abs(data[i][j]);
+		}
+		max_sum = std::max(max_sum, col_sum);
+	}
+	return max_sum;
 }
 
 #endif // MATRIX_H
