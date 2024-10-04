@@ -69,40 +69,60 @@ void jacobi_method(Matrix<T> A, std::vector<T>& eigenvalues, Matrix<T>& J, const
 	 }
 }
 
+template<typename T>
+std::vector<T> norma_v(const std::vector<T>& v)
+{
+	T norm = 0;
+	size_t n = v.size();
+	for (size_t i = 0; i < n; ++i)
+	{
+		norm += v[i] * v[i];
+	}
+	norm = std::sqrt(norm);
+
+	std::vector<T> v_n = v;
+	for (size_t i = 0; i < n; ++i)
+	{
+		v_n[i] /= norm;
+	}
+
+	return v_n;
+}
+
 // 253 стр пирумов
 template <typename T>
 std::pair<T, std::vector<T>> power_method(const Matrix<T>& A, const T& epsilon, size_t& iteration)
 {
 	size_t n = A.get_rows();
 	std::vector<T> y(n, 1.0);
-	std::vector<T> y_next(n, 0.0);
-	T lambda_old = 0, lambda_new = 0;
+	std::vector<T> z(n, 0.0);
+	T lambda_old = 0, lambda_new = 1;
 
 	for (;; ++iteration)
 	{
-		for (size_t i = 0; i < n; ++i) // y_next = A * y
+		lambda_old = (iteration) ? lambda_new : lambda_old;
+
+		for (size_t i = 0; i < n; ++i) // z = A * y
 		{
-			y_next[i] = 0;
+			z[i] = 0;
 			for (size_t j = 0; j < n; ++j)
 			{
-				y_next[i] += A[i][j] * y[j];
+				z[i] += A[i][j] * y[j];
 			}
 		}
 
-		lambda_new = *std::max_element(y_next.begin(), y_next.end(), [](T a, T b) { return std::abs(a) < std::abs(b); });
+		y = (iteration) ? norma_v(z) : y;
 
-		for (size_t i = 0; i < n; ++i)
-		{
-			y_next[i] /= lambda_new;
-		}
+		lambda_new = z[0] / y[0];
+
+		y = (iteration) ? y : norma_v(z) ;
 
 		if (std::abs(lambda_new - lambda_old) < epsilon) break;
-
-		lambda_old = lambda_new;
-		y = y_next;
 	}
 
-	return {lambda_new, y_next};
+	z = norma_v(y);
+
+	return {lambda_new, z};
 }
 
 
