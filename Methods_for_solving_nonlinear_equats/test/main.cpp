@@ -35,6 +35,8 @@ int main(int argc, char* argv[])
 
 		std::cout << "Secant: First solution of equation ln(x + 1) - 2 * x^2 + 1 is: " << secant_method(eps, 0.0, 1.0, func8, ddfunc8) << "\n";
 		std::cout << "Secant: Second solution of equation ln(x + 1) - 2 * x^2 + 1 is: " << secant_method(eps, -0.99, 0.0, func8, ddfunc8) << "\n";
+
+		std::cout << "Simple iter: First solution of equation ln(x + 1) - 2 * x^2 + 1 is: " << simple_iter(phi_x_p, dphi_x_p, 0.0, 1.0, eps) << "\n";
 	}
 	catch (const std::exception& e)
 	{

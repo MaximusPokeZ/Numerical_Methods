@@ -102,6 +102,24 @@ long double secant_method(long double eps, long double a, long double b, std::fu
 	return x;
 }
 
+long double simple_iter (const std::function<long double(long double)>& phi_f, const std::function<long double(long double)>& d_phi_f, long double a, long double b, long double eps)
+{
+	long double q;
+	long double prev_x = (a + b) * 0.5, x = prev_x;
+
+	do
+	{
+		q = std::abs(d_phi_f(x));
+		if (q >= 1) throw std::runtime_error("The convergence condition is not satisfied!");
+
+		prev_x = x;
+		x = phi_f(prev_x);
+
+	} while(((q / (1 - q)) * std::abs(x - prev_x)) > eps);
+
+	return x;
+}
+
 
 long double func8 (long double x)
 {
@@ -116,4 +134,14 @@ long double dfunc8(long double x)
 long double ddfunc8(long double x)
 {
 	return -1.0 / ((x + 1.0) * (x + 1.0)) - 4.0;
+}
+
+long double phi_x_p(long double x)
+{
+	return std::sqrt((log(x + 1) + 1) * 0.5);
+}
+
+long double dphi_x_p (long double x)
+{
+	return 1 / (2 * sqrt(2) * (x + 1) * sqrt(log(x + 1) + 1));
 }
