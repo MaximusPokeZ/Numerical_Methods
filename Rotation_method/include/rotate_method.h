@@ -50,6 +50,7 @@ void jacobi_method(Matrix<T> A, std::vector<T>& eigenvalues, Matrix<T>& J, const
 		 {
 			 phi = M_PI / 4.0;
 		 }
+
 		 phi = 0.5 * std::atan(2 * A[p][q] / (A[p][p] - A[q][q]));
 		 Matrix<T> P = Matrix<T>(n);
 		 P[p][p] = P[q][q] = std::cos(phi);
@@ -122,7 +123,7 @@ std::pair<T, std::vector<T>> power_method(const Matrix<T>& A, const T& epsilon, 
 
 	z = norma_v(y);
 
-	return {lambda_new, z};
+	return {-lambda_new, z};
 }
 
 
