@@ -81,6 +81,12 @@ int main()
 	}
 	std::cout << "\n";
 
+	for (size_t i = 0; i < 6; ++i)
+	{
+		std::cout << "x" << i << " = " << evaluate_polynomial(coeffs, x[i]) << "\n";
+	}
+	std::cout << "\n";
+
 	long double error_sum1 = calculate_error_sum(x, y, coeffs);
 	std::cout << "Sum of squared errors for the first degree Ф: " << error_sum1 << "\n";
 
@@ -91,6 +97,12 @@ int main()
 	for (size_t i = 0; i < coeffs.size(); ++i)
 	{
 		std::cout << "a" << i << " = " << coeffs[i] << "\n";
+	}
+	std::cout << "\n";
+
+	for (size_t i = 0; i < 6; ++i)
+	{
+		std::cout << "x" << i << " = " << evaluate_polynomial(coeffs, x[i]) << "\n";
 	}
 	std::cout << "\n";
 
