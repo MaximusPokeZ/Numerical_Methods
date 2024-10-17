@@ -83,7 +83,7 @@ int main()
 
 	for (size_t i = 0; i < 6; ++i)
 	{
-		std::cout << "x" << i << " = " << evaluate_polynomial(coeffs, x[i]) << "\n";
+		std::cout << "F (x" << i << ") = " << evaluate_polynomial(coeffs, x[i]) << "\n";
 	}
 	std::cout << "\n";
 
@@ -102,7 +102,7 @@ int main()
 
 	for (size_t i = 0; i < 6; ++i)
 	{
-		std::cout << "x" << i << " = " << evaluate_polynomial(coeffs, x[i]) << "\n";
+		std::cout << "F (x" << i << ") = " << evaluate_polynomial(coeffs, x[i]) << "\n";
 	}
 	std::cout << "\n";
 
@@ -112,3 +112,7 @@ int main()
 
 	return 0;
 }
+
+0.00553 + 1.10670*x
+
+-0.00699 + 1.10189 * x + 0.04815 * x * x

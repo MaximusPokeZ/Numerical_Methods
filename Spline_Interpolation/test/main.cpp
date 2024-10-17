@@ -31,11 +31,11 @@ std::vector<Spline> build_spline(const std::vector<long double>& x, const std::v
 		B[i - 1] = 3 * ((f[i + 1] - f[i]) / h[i] - (f[i] - f[i - 1]) / h[i - 1]);
 	}
 
-	std::cout << A << std::endl;
-	for (const auto & elem : B)
-	{
-		std::cout << elem << std::endl;
-	}
+	//std::cout << A << std::endl;
+//	for (const auto & elem : B)
+//	{
+//		std::cout << elem << std::endl;
+//	}
 
 	long double det = 1.0;
 	std::vector<long double> С(n + 1, 0.0);
@@ -98,6 +98,10 @@ int main()
 	std::cout << "c = " << splines[i].c << "\n";
 	std::cout << "d = " << splines[i].d << "\n";
 	std::cout << "f(X*) = " << result.second << "\n";
+
+	//выписать многочлен в общем виде
+
+	0.5236+1.21123*(x- 0.5 ) + 0.672167*(x- 0.5 )^2 + -0.746852 * (x- 0.5 )^3
 
 	return 0;
 }
