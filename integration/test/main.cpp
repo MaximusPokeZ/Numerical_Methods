@@ -51,7 +51,7 @@ double simpson_method(double x0, double x1, double h)
 
 	sum += (func(x0) + func(x1));
 	for (int i = 1; i < n; ++i) {
-		double xi = x0 + i * h;
+		double xi = x0 + i * h; // - узел разностной сетки
 		if (i % 2 == 0)
 		{
 			sum += 2 * func(xi);
